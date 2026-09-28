@@ -1,10 +1,10 @@
-// Completá este hook: debe devolver { valor, incrementar, decrementar }
+import { useState } from 'react';
 
-function useContador(inicial = 0) {
-  // 1. Guardá el valor en estado con useState
-  // 2. Definí incrementar y decrementar
-  // 3. Devolvé { valor, incrementar, decrementar }
+export function useContador(inicial = 0) {
+  const [valor, setValor] = useState(inicial);
+
+  const incrementar = () => setValor((prev) => prev + 1);
+  const decrementar = () => setValor((prev) => Math.max(0, prev - 1));
+
+  return { valor, incrementar, decrementar };
 }
-
-// export default no aplica acá — descomentá cuando esté listo:
-// export { useContador };

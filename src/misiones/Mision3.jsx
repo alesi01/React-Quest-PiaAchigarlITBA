@@ -1,7 +1,14 @@
 function Inventario({ items }) {
+  if (items.length === 0) {
+    return <p>No hay objetos en el inventario</p>;
+  }
   return (
     <ul>
-      <li>{items[0]?.nombre}</li>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.nombre} — {item.enStock ? '✅ En stock' : '❌ Agotado'}
+        </li>
+      ))}
     </ul>
   );
 }
@@ -16,6 +23,8 @@ function Mision3() {
     <div>
       <h2>🎒 Inventario del gremio</h2>
       <Inventario items={objetos} />
+      <h3>Inventario de un aventurero nuevo</h3>
+      <Inventario items={[]} />
     </div>
   );
 }

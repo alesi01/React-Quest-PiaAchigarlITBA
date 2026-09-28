@@ -18,32 +18,32 @@ function Mision7() {
     return () => clearTimeout(t);
   }, []);
 
-  // Bug 4: falta la dependencia `heroe.nombre`
+  // Bug 4 corregido: agregada dependencia `heroe.nombre`
   useEffect(() => {
     document.title = `Panel de ${heroe.nombre}`;
-  }, []);
+  }, [heroe.nombre]);
 
-  // Bug 5: mutación directa de estado
+  // Bug 5 corregido: sin mutación directa con .push()
   useEffect(() => {
-    items.push({ id: 1, nombre: 'Poción' });
-    items.push({ id: 2, nombre: 'Escudo' });
-    items.push({ id: 3, nombre: 'Mapa' });
-    setItems(items);
+    setItems([
+      { id: 1, nombre: 'Poción' },
+      { id: 2, nombre: 'Escudo' },
+      { id: 3, nombre: 'Mapa' },
+    ]);
   }, []);
 
-  // Bug 2: hook llamado condicionalmente
-  if (combate) {
-    var modo = useModoHeroe(true);
-  }
+  // Bug 2 corregido: el hook se llama de forma incondicional
+  const modo = useModoHeroe(combate);
 
   return (
     <div className="panel-heroe">
-      {/* Bug 1: objeto entero en vez de heroe.nombre */}
-      <h2>Panel de {heroe}</h2>
+      {/* Bug 1 corregido: heroe.nombre en vez del objeto entero */}
+      <h2>Panel de {heroe.nombre}</h2>
       <p>Modo: {modo}</p>
       <ul>
         {items.map((item) => (
-          <li>{item.nombre}</li> // Bug 3: falta key
+          /* Bug 3 corregido: key agregada */
+          <li key={item.id}>{item.nombre}</li>
         ))}
       </ul>
     </div>
